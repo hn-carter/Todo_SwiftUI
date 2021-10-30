@@ -14,11 +14,13 @@ struct Todo: Identifiable, Codable {
     let id: UUID
     var title: String
     var isComplete: Bool
+    var created: Date
     
-    init(id: UUID = UUID(), title: String, isComplete: Bool = false) {
+    init(id: UUID = UUID(), title: String, isComplete: Bool = false, created: Date = Date()) {
         self.id = id
         self.title = title
         self.isComplete = isComplete
+        self.created = created
     }
     
     // プレビュー用サンプルデータ
