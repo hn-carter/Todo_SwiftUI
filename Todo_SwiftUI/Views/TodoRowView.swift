@@ -11,18 +11,26 @@ import SwiftUI
  Togoリストの行View
  */
 struct TodoRowView: View {
-    let todo: Todo
+    let todo: TodoViewData
 
     var body: some View {
         HStack {
-            Text(todo.title)
-                .font(.title)
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                Image(systemName: todo.isComplete ? "checkmark.square.fill" : "square")
+                    .font(.title)
+                Text(todo.title)
+                    .font(.title)
+            }
+            .foregroundColor(.black)
+            
+            Spacer()
         }
+        .padding()
     }
 }
 
 struct TodoRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRowView(todo: Todo.data[0])
+        TodoRowView(todo: TodoViewModel.sampleData[2])
     }
 }

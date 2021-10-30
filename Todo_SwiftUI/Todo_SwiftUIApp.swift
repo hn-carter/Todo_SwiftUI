@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct Todo_SwiftUIApp: App {
+    @ObservedObject private var data = TodoViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                ContentView()
+            }
+            // 表示時にファイルからデータを読み込む
+            .onAppear {
+                data.load()
+            }
         }
     }
 }
