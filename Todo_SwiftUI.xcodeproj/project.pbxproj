@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C059AA7272E21390036FE8B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C059AA6272E21390036FE8B /* Date+Extension.swift */; };
 		7C1393AC272D791400EE9F65 /* TodoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1393AB272D791400EE9F65 /* TodoViewData.swift */; };
 		7C14556327211C9800911626 /* Todo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C14556227211C9800911626 /* Todo_SwiftUIApp.swift */; };
 		7C14556527211C9800911626 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C14556427211C9800911626 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C059AA6272E21390036FE8B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		7C1393AB272D791400EE9F65 /* TodoViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewData.swift; sourceTree = "<group>"; };
 		7C14555F27211C9800911626 /* Todo_SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo_SwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C14556227211C9800911626 /* Todo_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo_SwiftUIApp.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				7CD5C968272AE662005D2727 /* Todo.swift */,
 				7C197C51272BA98D009EAE9A /* TodoRepository.swift */,
+				7C059AA6272E21390036FE8B /* Date+Extension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				7CD5C969272AE662005D2727 /* Todo.swift in Sources */,
 				7C197C54272BAA19009EAE9A /* TodoViewModel.swift in Sources */,
 				7C197C52272BA98D009EAE9A /* TodoRepository.swift in Sources */,
+				7C059AA7272E21390036FE8B /* Date+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
