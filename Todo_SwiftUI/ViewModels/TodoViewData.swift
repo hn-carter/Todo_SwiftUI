@@ -13,11 +13,13 @@ import Foundation
 struct TodoViewData: Identifiable {
     let id: UUID
     var title: String
+    var dueDate: Date
     var isComplete: Bool
     
-    init(id: UUID = UUID(), title: String, isComplete: Bool) {
+    init(id: UUID = UUID(), title: String, isComplete: Bool, dueDate: Date) {
         self.id = id
         self.title = title
+        self.dueDate = dueDate
         self.isComplete = isComplete
     }
 }

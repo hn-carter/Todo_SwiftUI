@@ -25,12 +25,5 @@ struct Todo: Identifiable, Codable {
         self.created = created
     }
     
-    // プレビュー用サンプルデータ
-    static var data: [Todo] {
-        [
-            Todo(title: "iMacの電源を入れる", isComplete: true, dueDate: Date()),
-            Todo(title: "Xcodeを起動する", isComplete: true, dueDate: Date(timeIntervalSinceNow: 3600)),
-            Todo(title: "なんかすごいあぷりをつくる", dueDate: Date(timeIntervalSinceReferenceDate: 365))
-        ]
-    }
+
 }

@@ -11,15 +11,27 @@ import SwiftUI
  Togoリストの行View
  */
 struct TodoRowView: View {
-    let todo: TodoViewData
+    @Binding var todo: TodoViewData
 
     var body: some View {
         HStack {
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: {
+                todo.isComplete.toggle()
+            }) {
+                HStack {
                 Image(systemName: todo.isComplete ? "checkmark.square.fill" : "square")
                     .font(.title)
-                Text(todo.title)
-                    .font(.title)
+                    VStack {
+                        Text(todo.title)
+                            .font(.title)
+                        HStack {
+                            Image(systemName: "clock")
+                            Text(todo.dueDate.dueDateString)
+                                .font(.headline)
+                        }
+                    }
+                    
+                }
             }
             .foregroundColor(.black)
             
@@ -31,6 +43,6 @@ struct TodoRowView: View {
 
 struct TodoRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRowView(todo: TodoViewModel.sampleData[2])
+        TodoRowView(todo: .constant(TodoViewModel.sampleData[2]))
     }
 }

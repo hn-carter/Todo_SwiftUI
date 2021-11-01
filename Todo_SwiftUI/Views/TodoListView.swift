@@ -8,24 +8,44 @@
 import SwiftUI
 
 struct TodoListView: View {
-    @Binding var todoViewModel: TodoViewModel
+    // 編集可能な一覧表示ToDoデータ
+    @Binding var todoDate: [TodoViewData]
+    // ToDo追加シート表示フラグ
+    @State private var isPresented = false
+    @State private var newTodo: TodoViewData = TodoViewData(title: "", isComplete: false, dueDate: Date())
     
     var body: some View {
-        ZStack {
-            List {
-                ForEach(todoViewModel.todos) { todo in
-                    TodoRowView(todo: todo)
-                }
+        List {
+            ForEach($todoDate) { todo in
+                TodoRowView(todo: todo)
             }
-            if (todoViewModel.todos.count == 0) {
+            if (todoDate.count == 0) {
                 Text("ToDoがありません。")
             }
         }
+        // EditボタンでToDo入力シートを表示する
+        .navigationBarItems(trailing: Button("Edit") {
+            isPresented = true
+        })
+        .navigationTitle("ToDoリスト")
+        .fullScreenCover(isPresented: $isPresented) {
+            NavigationView {
+                EditView(todo: $newTodo)
+                .navigationTitle("ToDo追加")
+                .navigationBarItems(leading: Button("Cancel") {
+                    isPresented = false
+                }, trailing: Button("Done") {
+                    isPresented = false
+                    todoDate.append(newTodo)
+                })
+            }
+        }
+
     }
 }
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(todoViewModel: .constant(TodoViewModel()))
+        TodoListView(todoDate: .constant(TodoViewModel.sampleData))
     }
 }

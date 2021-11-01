@@ -32,14 +32,13 @@ class TodoViewModel: ObservableObject {
 
     
 }
-
 // プレビュー用サンプルデータ
 extension TodoViewModel {
     static var sampleData: [TodoViewData] {
         [
-            TodoViewData(title: "iMacの電源を入れる", isComplete: true),
-            TodoViewData(title: "Xcodeを起動する", isComplete: true),
-            TodoViewData(title: "なんかすごいあぷりをつくる", isComplete: false)
+            TodoViewData(title: "iMacの電源を入れる", isComplete: true, dueDate: Date()),
+            TodoViewData(title: "Xcodeを起動する", isComplete: true, dueDate: Date(timeIntervalSinceNow: 3600)),
+            TodoViewData(title: "なんかすごいあぷりをつくる", isComplete: false, dueDate: Date(year: 2021, month: 12, day: 31))
         ]
     }
 }
