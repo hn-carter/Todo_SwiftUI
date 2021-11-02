@@ -15,6 +15,13 @@ class TodoViewModel: ObservableObject {
     
     // 画面表示用ToDoリスト
     @Published var todos: [TodoViewData] = []
+
+    /**
+     ToDoを追加する
+     */
+    func add(todo: TodoViewData) {
+        self.todos.append(todo)
+    }
     
     /**
      ファイルからTodoデータを読み込む
@@ -40,6 +47,9 @@ extension TodoViewModel {
             TodoViewData(title: "Xcodeを起動する", isComplete: true, dueDate: Date(timeIntervalSinceNow: 3600)),
             TodoViewData(title: "なんかすごいあぷりをつくる", isComplete: false, dueDate: Date(year: 2021, month: 12, day: 31))
         ]
+    }
+    static var sampleEmptyData: [TodoViewData] {
+        []
     }
 }
 

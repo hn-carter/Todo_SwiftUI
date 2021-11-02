@@ -14,7 +14,7 @@ struct Todo_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView()
+                TodoListView(todoDate: $data.todos)
             }
             // 表示時にファイルからデータを読み込む
             .onAppear {

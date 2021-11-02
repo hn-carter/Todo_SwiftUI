@@ -23,8 +23,7 @@ struct TodoListView: View {
                 Text("ToDoがありません。")
             }
         }
-        // EditボタンでToDo入力シートを表示する
-        .navigationBarItems(trailing: Button("Edit") {
+        .navigationBarItems(trailing: Button("追加") {
             isPresented = true
         })
         .navigationTitle("ToDoリスト")
@@ -47,5 +46,6 @@ struct TodoListView: View {
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
         TodoListView(todoDate: .constant(TodoViewModel.sampleData))
+        TodoListView(todoDate: .constant(TodoViewModel.sampleEmptyData))
     }
 }
