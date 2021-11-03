@@ -25,6 +25,6 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditView(todo: .constant(TodoViewModel.sampleData[0]))
+        EditView(todo: .constant(TodoViewData.sampleData[0]))
     }
 }

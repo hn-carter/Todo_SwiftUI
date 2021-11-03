@@ -43,6 +43,6 @@ struct TodoRowView: View {
 
 struct TodoRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRowView(todo: .constant(TodoViewModel.sampleData[2]))
+        TodoRowView(todo: .constant(TodoViewData.sampleData[2]))
     }
 }

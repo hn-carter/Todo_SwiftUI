@@ -9,17 +9,17 @@ import SwiftUI
 
 struct TodoListView: View {
     // 編集可能な一覧表示ToDoデータ
-    @Binding var todoDate: [TodoViewData]
+    @StateObject var viewModel: TodoViewModel
     // ToDo追加シート表示フラグ
     @State private var isPresented = false
     @State private var newTodo: TodoViewData = TodoViewData(title: "", isComplete: false, dueDate: Date())
     
     var body: some View {
         List {
-            ForEach($todoDate) { todo in
+            ForEach($viewModel.todos) { todo in
                 TodoRowView(todo: todo)
             }
-            if (todoDate.count == 0) {
+            if (viewModel.todos.count == 0) {
                 Text("ToDoがありません。")
             }
         }
@@ -35,7 +35,7 @@ struct TodoListView: View {
                     isPresented = false
                 }, trailing: Button("Done") {
                     isPresented = false
-                    todoDate.append(newTodo)
+                    viewModel.todos.append(newTodo)
                 })
             }
         }
@@ -45,7 +45,7 @@ struct TodoListView: View {
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(todoDate: .constant(TodoViewModel.sampleData))
-        TodoListView(todoDate: .constant(TodoViewModel.sampleEmptyData))
+        TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleData))
+         TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleEmptyData))
     }
 }

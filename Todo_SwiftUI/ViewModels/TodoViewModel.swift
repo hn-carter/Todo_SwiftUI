@@ -16,6 +16,10 @@ class TodoViewModel: ObservableObject {
     // 画面表示用ToDoリスト
     @Published var todos: [TodoViewData] = []
 
+    init(data: [TodoViewData] = [TodoViewData]()) {
+        self.todos = repositories
+    }
+
     /**
      ToDoを追加する
      */
@@ -39,17 +43,3 @@ class TodoViewModel: ObservableObject {
 
     
 }
-// プレビュー用サンプルデータ
-extension TodoViewModel {
-    static var sampleData: [TodoViewData] {
-        [
-            TodoViewData(title: "iMacの電源を入れる", isComplete: true, dueDate: Date()),
-            TodoViewData(title: "Xcodeを起動する", isComplete: true, dueDate: Date(timeIntervalSinceNow: 3600)),
-            TodoViewData(title: "なんかすごいあぷりをつくる", isComplete: false, dueDate: Date(year: 2021, month: 12, day: 31))
-        ]
-    }
-    static var sampleEmptyData: [TodoViewData] {
-        []
-    }
-}
-
