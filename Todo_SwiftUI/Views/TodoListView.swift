@@ -13,11 +13,15 @@ struct TodoListView: View {
     // ToDo追加シート表示フラグ
     @State private var isPresented = false
     @State private var newTodo: TodoViewData = TodoViewData(title: "", isComplete: false, dueDate: Date())
+    //@state private var errorInfo: String
     
     var body: some View {
         List {
             ForEach($viewModel.todos) { todo in
                 TodoRowView(todo: todo)
+            }
+            .onDelete { indices in
+                viewModel.delete(atOffsets: indices)
             }
             if (viewModel.todos.count == 0) {
                 Text("ToDoがありません。")
@@ -29,13 +33,14 @@ struct TodoListView: View {
         .navigationTitle("ToDoリスト")
         .fullScreenCover(isPresented: $isPresented) {
             NavigationView {
-                EditView(todo: $newTodo)
+                EditView(viewModel: viewModel,
+                         todo: $newTodo)
                 .navigationTitle("ToDo追加")
-                .navigationBarItems(leading: Button("Cancel") {
+                .navigationBarItems(leading: Button("キャンセル") {
                     isPresented = false
-                }, trailing: Button("Done") {
+                }, trailing: Button("追加") {
                     isPresented = false
-                    viewModel.todos.append(newTodo)
+                    viewModel.add(todo: newTodo)
                 })
             }
         }
@@ -45,7 +50,9 @@ struct TodoListView: View {
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
+        //　いくつかのデータ
         TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleData))
+        // 空データ
          TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleEmptyData))
     }
 }

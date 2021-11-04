@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditView: View {
+    @StateObject var viewModel: TodoViewModel
     @Binding var todo: TodoViewData
     
     var body: some View {
@@ -15,6 +16,7 @@ struct EditView: View {
             Section(header: Text("タイトル")) {
                 TextField("やること", text: $todo.title)
                     .font(.title)
+                Text(viewModel.todos[0].title)
             }
             Section(header: Text("期限")) {
                 DatePicker("期限", selection: $todo.dueDate)
@@ -25,6 +27,7 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditView(todo: .constant(TodoViewData.sampleData[0]))
+        EditView(viewModel: TodoViewModel(),
+                 todo: .constant(TodoViewData.sampleData[0]))
     }
 }
