@@ -8,18 +8,26 @@
 import SwiftUI
 
 struct EditView: View {
-    @StateObject var viewModel: TodoViewModel
-    @Binding var todo: TodoViewData
+    @ObservedObject var viewModel: TodoViewModel
     
     var body: some View {
         List {
             Section(header: Text("タイトル")) {
-                TextField("やること", text: $todo.title)
+                TextField("やること", text: $viewModel.newTodo.title)
                     .font(.title)
-                Text(viewModel.todos[0].title)
+                if let error = viewModel.errorTitle {
+                    Text(error)
+                        .font(.headline)
+                        .foregroundColor(Color.red)
+                }
             }
             Section(header: Text("期限")) {
-                DatePicker("期限", selection: $todo.dueDate)
+                DatePicker("期限", selection: $viewModel.newTodo.dueDate)
+                if let error = viewModel.errorDueDate {
+                    Text(error)
+                        .font(.headline)
+                        .foregroundColor(Color.red)
+                }
             }
         }
     }
@@ -27,7 +35,6 @@ struct EditView: View {
 
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        EditView(viewModel: TodoViewModel(),
-                 todo: .constant(TodoViewData.sampleData[0]))
+        EditView(viewModel: TodoViewModel())
     }
 }

@@ -24,6 +24,15 @@ struct Todo: Identifiable, Codable {
         self.dueDate = dueDate
         self.created = created
     }
-    
-
 }
+
+extension Todo {
+    static var data: [Todo] {
+        [
+            Todo(title: "Test1", isComplete: true, dueDate: Date()),
+            Todo(title: "Test2", isComplete: false, dueDate: Date()),
+            Todo(title: "Test3", isComplete: true, dueDate: Date(year: 2021, month: 12, day: 30))
+        ]
+    }
+}
+

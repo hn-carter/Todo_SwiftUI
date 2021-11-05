@@ -39,20 +39,39 @@ class TodoRepository: ObservableObject {
         return documentsFolder.appendingPathComponent("todo.data")
     }
 
-
+    // ToDoデータ
     var todos: [Todo] = []
     
     /**
      ファイルからTodoデータを読み込む
      */
     func load() {
-        
+       // toto.data ファイルを data 定数に読み込む
+        guard let data = try? Data(contentsOf: TodoRepository.fileURL) else {
+            return
+        }
+        // data 定数をJSONDecoder でスクラムデータを [DailyScrum] にデコードする
+        guard let loadedTodos = try? JSONDecoder().decode([Todo].self, from: data) else {
+            fatalError("Can't decode saved scrum data.")
+        }
+        // main キューでスクラムデータの設定処理を行います
+        self.todos = loadedTodos
     }
   
     /**
-     
+     ToDoデータをファイルに保存する
      */
     func save() {
-        
+        //guard let scrums = self?.todos else { fatalError("Self out of scope") }
+        // scrums データを JSONEncoder でエンコードします
+        guard let data = try? JSONEncoder().encode(self.todos) else { fatalError("Error encoding data") }
+
+        // エンコード結果をscrums.dataファイルに書き込みます
+        do {
+            let outfile = TodoRepository.fileURL
+            try data.write(to: outfile)
+        } catch {
+            fatalError("Can't write to file")
+        }
     }
 }

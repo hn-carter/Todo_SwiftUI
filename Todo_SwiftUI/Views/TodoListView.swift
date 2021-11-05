@@ -9,11 +9,9 @@ import SwiftUI
 
 struct TodoListView: View {
     // 編集可能な一覧表示ToDoデータ
-    @StateObject var viewModel: TodoViewModel
+    @ObservedObject var viewModel: TodoViewModel
     // ToDo追加シート表示フラグ
     @State private var isPresented = false
-    @State private var newTodo: TodoViewData = TodoViewData(title: "", isComplete: false, dueDate: Date())
-    //@state private var errorInfo: String
     
     var body: some View {
         List {
@@ -21,26 +19,29 @@ struct TodoListView: View {
                 TodoRowView(todo: todo)
             }
             .onDelete { indices in
-                viewModel.delete(atOffsets: indices)
+                // ToDoの1件削除
+                let _ = viewModel.delete(atOffsets: indices)
             }
             if (viewModel.todos.count == 0) {
                 Text("ToDoがありません。")
             }
         }
         .navigationBarItems(trailing: Button("追加") {
-            isPresented = true
+            if viewModel.preAdd() {
+                isPresented = true
+            }
         })
         .navigationTitle("ToDoリスト")
         .fullScreenCover(isPresented: $isPresented) {
             NavigationView {
-                EditView(viewModel: viewModel,
-                         todo: $newTodo)
+                EditView(viewModel: viewModel)
                 .navigationTitle("ToDo追加")
                 .navigationBarItems(leading: Button("キャンセル") {
                     isPresented = false
-                }, trailing: Button("追加") {
-                    isPresented = false
-                    viewModel.add(todo: newTodo)
+                }, trailing: Button("登録") {
+                    if viewModel.add() {
+                        isPresented = false
+                    }
                 })
             }
         }

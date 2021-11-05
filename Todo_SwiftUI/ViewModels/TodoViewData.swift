@@ -12,15 +12,28 @@ import Foundation
  */
 struct TodoViewData: Identifiable {
     let id: UUID
+    // タイトル
     var title: String
+    // 期限
     var dueDate: Date
+    // 完了
     var isComplete: Bool
     
-    init(id: UUID = UUID(), title: String, isComplete: Bool, dueDate: Date) {
+    init(id: UUID = UUID(), title: String = "", isComplete: Bool = false, dueDate: Date = Date()) {
         self.id = id
         self.title = title
         self.dueDate = dueDate
         self.isComplete = isComplete
+    }
+
+    /**
+     モデルから表示用に変換
+     */
+    init(todo: Todo) {
+        self.id = UUID()
+        self.title = todo.title
+        self.isComplete = todo.isComplete
+        self.dueDate = todo.dueDate
     }
 }
 
