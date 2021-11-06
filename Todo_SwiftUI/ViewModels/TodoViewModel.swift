@@ -23,6 +23,8 @@ class TodoViewModel: ObservableObject {
     @Published var todos: [TodoViewData]
     // 新規登録用ToDoデータ
     @Published var newTodo: TodoViewData
+    // 読み込み中
+    @Published var Loading: Bool = false
     
     // エラーメッセージ - タイトル
     @Published var errorTitle: String?
@@ -90,25 +92,28 @@ class TodoViewModel: ObservableObject {
      ToDoデータをファイルから読み込む
      */
     func load() {
+        self.Loading = true
         // DispatchQue : メインスレッドまたはバックグラウンドスレッドでタスクの実行を連続的または同時に管理するオブジェクト
         // バックグラウンドタスクは、すべてのタスクの中で最も優先度が低くなります
         // async : タスクの非同期実行
         DispatchQueue.global(qos: .background).async { [weak self] in
             // toto.data ファイルを data 定数に読み込む
             #if DEBUG
+            print("デバッグ")
             DispatchQueue.main.async {
                 // DEBUG 中はサンプルデータを使う
-                self?.todos = (TodoViewModel.convView(todo: Todo.data))
+                self?.todos = TodoViewModel.convView(todo: Todo.data)
+                self!.Loading = false
             }
             #else
-                todoModel.load()
+            self?.todoModel.load()
             #endif
             // main キューでスクラムデータの設定処理を行います
             DispatchQueue.main.async {
-                self?.todos = (TodoViewModel.convView(todo: (self?.todoModel.todos)!))
+                self?.todos = TodoViewModel.convView(todo: (self?.todoModel.todos)!)
+                self!.Loading = false
             }
         }
-
     }
     
     /**
@@ -120,14 +125,13 @@ class TodoViewModel: ObservableObject {
         return result
     }
     
-  
     /**
      4.ToDoデータをファイルに保存する
      */
     func save() {
-        // バックグラウンドキューで、selfがスコープ内にあることを確認します
+        // バックグラウンドキューで、selfがスコsープ内にあることを確認します
         DispatchQueue.global(qos: .background).async { [weak self] in
-            todoModel.todos = TodoViewModel.convModel(todo: self!.todos)
+            self?.todoModel.todos = TodoViewModel.convModel(todo: self!.todos)
             self?.todoModel.save()
         }
     }
@@ -137,6 +141,4 @@ class TodoViewModel: ObservableObject {
         result = todo.map{ Todo(title: $0.title, isComplete: $0.isComplete, dueDate: $0.dueDate) }
         return result
     }
-
-    
 }

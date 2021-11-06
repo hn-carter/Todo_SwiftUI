@@ -24,13 +24,13 @@ struct TodoRowView: View {
                     VStack {
                         Text(todo.title)
                             .font(.title)
+                            .multilineTextAlignment(.leading)
                         HStack {
                             Image(systemName: "clock")
                             Text(todo.dueDate.dueDateString)
                                 .font(.headline)
                         }
                     }
-                    
                 }
             }
             .foregroundColor(.black)

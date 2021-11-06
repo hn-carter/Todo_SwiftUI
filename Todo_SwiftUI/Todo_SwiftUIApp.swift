@@ -14,7 +14,9 @@ struct Todo_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                TodoListView(viewModel: viewModel)
+                TodoListView(viewModel: viewModel) {
+                    viewModel.save()
+                }
             }
             // 表示時にファイルからデータを読み込む
             .onAppear {

@@ -50,11 +50,12 @@ class TodoRepository: ObservableObject {
         guard let data = try? Data(contentsOf: TodoRepository.fileURL) else {
             return
         }
-        // data 定数をJSONDecoder でスクラムデータを [DailyScrum] にデコードする
+        // data 定数をJSONDecoder でスクラムデータを [Todo] にデコードする
         guard let loadedTodos = try? JSONDecoder().decode([Todo].self, from: data) else {
-            fatalError("Can't decode saved scrum data.")
+            print("Can't decode saved todo data.")
+            fatalError("Can't decode saved todo data.")
         }
-        // main キューでスクラムデータの設定処理を行います
+        // main キューでToDoデータの設定処理を行います
         self.todos = loadedTodos
     }
   
@@ -62,11 +63,10 @@ class TodoRepository: ObservableObject {
      ToDoデータをファイルに保存する
      */
     func save() {
-        //guard let scrums = self?.todos else { fatalError("Self out of scope") }
-        // scrums データを JSONEncoder でエンコードします
+        // todos データを JSONEncoder でエンコードします
         guard let data = try? JSONEncoder().encode(self.todos) else { fatalError("Error encoding data") }
 
-        // エンコード結果をscrums.dataファイルに書き込みます
+        // エンコード結果をtodo.dataファイルに書き込みます
         do {
             let outfile = TodoRepository.fileURL
             try data.write(to: outfile)

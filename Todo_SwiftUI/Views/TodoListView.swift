@@ -10,21 +10,34 @@ import SwiftUI
 struct TodoListView: View {
     // 編集可能な一覧表示ToDoデータ
     @ObservedObject var viewModel: TodoViewModel
+    // SwiftUIは、アプリのSceneインスタンスの現在の動作状態を
+    // scenePhase Environment値で示します。
+    // これを監視することでアプリが閉じられた時にデータ保存を行います
+    @Environment(\.scenePhase) private var scenePhase
+    // 保存処理
+    let saveAction: () -> Void
+
     // ToDo追加シート表示フラグ
     @State private var isPresented = false
     
     var body: some View {
-        List {
-            ForEach($viewModel.todos) { todo in
-                TodoRowView(todo: todo)
+        VStack {
+            if viewModel.Loading {
+                Text("Loading...")
+            } else {
+                ForEach($viewModel.todos) { todo in
+                    TodoRowView(todo: todo)
+                    Divider()
+                }
+                .onDelete { indices in
+                    // ToDoの1件削除
+                    let _ = viewModel.delete(atOffsets: indices)
+                }
+                if (viewModel.todos.count == 0) {
+                    Text("ToDoがありません。")
+                }
             }
-            .onDelete { indices in
-                // ToDoの1件削除
-                let _ = viewModel.delete(atOffsets: indices)
-            }
-            if (viewModel.todos.count == 0) {
-                Text("ToDoがありません。")
-            }
+            Spacer()
         }
         .navigationBarItems(trailing: Button("追加") {
             if viewModel.preAdd() {
@@ -45,15 +58,23 @@ struct TodoListView: View {
                 })
             }
         }
-
+        .onChange(of: scenePhase) { phase in
+            if phase == .inactive { saveAction() }
+        }
     }
 }
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
         //　いくつかのデータ
-        TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleData))
+        NavigationView {
+            TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleData),
+                         saveAction: {})
+        }
         // 空データ
-         TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleEmptyData))
+        NavigationView {
+            TodoListView(viewModel: TodoViewModel(data: TodoViewData.sampleEmptyData),
+                         saveAction: {})
+        }
     }
 }
