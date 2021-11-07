@@ -102,17 +102,18 @@ class TodoViewModel: ObservableObject {
             print("デバッグ")
             DispatchQueue.main.async {
                 // DEBUG 中はサンプルデータを使う
-                self?.todos = TodoViewModel.convView(todo: Todo.data)
+                self!.todos = TodoViewModel.convView(todo: Todo.data)
                 self!.Loading = false
             }
             #else
+            // ファイルに保存されたToDoを読み込む
             self?.todoModel.load()
-            #endif
             // main キューでスクラムデータの設定処理を行います
             DispatchQueue.main.async {
-                self?.todos = TodoViewModel.convView(todo: (self?.todoModel.todos)!)
+                self!.todos = TodoViewModel.convView(todo: (self?.todoModel.todos)!)
                 self!.Loading = false
             }
+            #endif
         }
     }
     

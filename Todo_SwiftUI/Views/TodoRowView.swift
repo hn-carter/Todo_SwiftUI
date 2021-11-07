@@ -19,9 +19,10 @@ struct TodoRowView: View {
                 todo.isComplete.toggle()
             }) {
                 HStack {
-                Image(systemName: todo.isComplete ? "checkmark.square.fill" : "square")
+                    Image(systemName: todo.isComplete ? "checkmark.square.fill" : "square")
+                        .foregroundColor(Color.green)
                     .font(.title)
-                    VStack {
+                    VStack(alignment: .leading) {
                         Text(todo.title)
                             .font(.title)
                             .multilineTextAlignment(.leading)
@@ -31,9 +32,9 @@ struct TodoRowView: View {
                                 .font(.headline)
                         }
                     }
+                    .foregroundColor(.black)
                 }
             }
-            .foregroundColor(.black)
             
             Spacer()
         }

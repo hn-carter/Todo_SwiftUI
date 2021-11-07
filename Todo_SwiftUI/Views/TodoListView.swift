@@ -21,13 +21,13 @@ struct TodoListView: View {
     @State private var isPresented = false
     
     var body: some View {
-        VStack {
-            if viewModel.Loading {
-                Text("Loading...")
-            } else {
+        
+        if viewModel.Loading {
+            Text("Loading...")
+        } else {
+            List {
                 ForEach($viewModel.todos) { todo in
                     TodoRowView(todo: todo)
-                    Divider()
                 }
                 .onDelete { indices in
                     // ToDoの1件削除
@@ -37,29 +37,28 @@ struct TodoListView: View {
                     Text("ToDoがありません。")
                 }
             }
-            Spacer()
-        }
-        .navigationBarItems(trailing: Button("追加") {
-            if viewModel.preAdd() {
-                isPresented = true
-            }
-        })
-        .navigationTitle("ToDoリスト")
-        .fullScreenCover(isPresented: $isPresented) {
-            NavigationView {
-                EditView(viewModel: viewModel)
-                .navigationTitle("ToDo追加")
-                .navigationBarItems(leading: Button("キャンセル") {
-                    isPresented = false
-                }, trailing: Button("登録") {
-                    if viewModel.add() {
+            .navigationBarItems(trailing: Button("追加") {
+                if viewModel.preAdd() {
+                    isPresented = true
+                }
+            })
+            .fullScreenCover(isPresented: $isPresented) {
+                NavigationView {
+                    EditView(viewModel: viewModel)
+                    .navigationTitle("ToDo追加")
+                    .navigationBarItems(leading: Button("キャンセル") {
                         isPresented = false
-                    }
-                })
+                    }, trailing: Button("登録") {
+                        if viewModel.add() {
+                            isPresented = false
+                        }
+                    })
+                }
             }
-        }
-        .onChange(of: scenePhase) { phase in
-            if phase == .inactive { saveAction() }
+            .onChange(of: scenePhase) { phase in
+                if phase == .inactive { saveAction() }
+            }
+            Spacer()
         }
     }
 }
