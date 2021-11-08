@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Todo_SwiftUI
+
+  Created by hn-carter on 2021/11/08.
+*/
+
+"title" = "Tasks";
+"enterTodo" = "Task";
+"add" = "Add";
+"addTodo" = "Add new task";
+"done" = "Done";
+"cancel" = "Cancel";
+"dueDate" = "Due Date";
+"noTodo" = "There are no tasks.";
+"errorTitle" = "Please enter the Task name.";
+"errorDueDate" = "Please enter the due data after the present.";

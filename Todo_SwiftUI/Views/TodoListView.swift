@@ -34,10 +34,10 @@ struct TodoListView: View {
                     let _ = viewModel.delete(atOffsets: indices)
                 }
                 if (viewModel.todos.count == 0) {
-                    Text("ToDoがありません。")
+                    Text("noTodo")
                 }
             }
-            .navigationBarItems(trailing: Button("追加") {
+            .navigationBarItems(trailing: Button("add") {
                 if viewModel.preAdd() {
                     isPresented = true
                 }
@@ -45,10 +45,10 @@ struct TodoListView: View {
             .fullScreenCover(isPresented: $isPresented) {
                 NavigationView {
                     EditView(viewModel: viewModel)
-                    .navigationTitle("ToDo追加")
-                    .navigationBarItems(leading: Button("キャンセル") {
+                    .navigationTitle("addTodo")
+                    .navigationBarItems(leading: Button("cancel") {
                         isPresented = false
-                    }, trailing: Button("登録") {
+                    }, trailing: Button("done") {
                         if viewModel.add() {
                             isPresented = false
                         }

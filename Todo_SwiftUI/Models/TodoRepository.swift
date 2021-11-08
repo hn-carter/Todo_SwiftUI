@@ -50,7 +50,7 @@ class TodoRepository: ObservableObject {
         guard let data = try? Data(contentsOf: TodoRepository.fileURL) else {
             return
         }
-        // data 定数をJSONDecoder でスクラムデータを [Todo] にデコードする
+        // data 定数をJSONDecoder でToDoデータを [Todo] にデコードする
         guard let loadedTodos = try? JSONDecoder().decode([Todo].self, from: data) else {
             print("Can't decode saved todo data.")
             fatalError("Can't decode saved todo data.")

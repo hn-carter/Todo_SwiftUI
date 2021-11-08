@@ -41,6 +41,9 @@ class TodoViewModel: ObservableObject {
      - Returns: 処理結果
      */
     func preAdd() -> Bool {
+        // エラー表示のリセット
+        self.errorTitle = nil
+        self.errorDueDate = nil
         // 新規追加データのデフォルト値
         self.newTodo = TodoViewData(title: "", isComplete: false, dueDate: Date())
         return true
@@ -58,12 +61,14 @@ class TodoViewModel: ObservableObject {
         // タイトルが入力されているか？
         if self.newTodo.title.isEmpty {
             errorFlag = true
-            self.errorTitle = "タイトルは必ず入力してください。"
+            let msg = NSLocalizedString("errorTitle", comment: "")
+            self.errorTitle = msg
         }
         // 期限が現在以降か？
         if self.newTodo.dueDate < Date() {
             errorFlag = true
-            self.errorDueDate = "期限は現在以降を入力してください。"
+            let msg = NSLocalizedString("errorDueDate", comment: "")
+            self.errorDueDate = msg
         }
 
         // エラー終了

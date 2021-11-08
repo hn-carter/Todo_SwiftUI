@@ -12,8 +12,9 @@ struct EditView: View {
     
     var body: some View {
         List {
-            Section(header: Text("タイトル")) {
-                TextField("やること", text: $viewModel.newTodo.title)
+            Section(header: Text("title")) {
+                let msg = NSLocalizedString("enterTodo", comment: "")
+                TextField(msg, text: $viewModel.newTodo.title)
                     .font(.title)
                 if let error = viewModel.errorTitle {
                     Text(error)
@@ -21,8 +22,12 @@ struct EditView: View {
                         .foregroundColor(Color.red)
                 }
             }
-            Section(header: Text("期限")) {
-                DatePicker("期限", selection: $viewModel.newTodo.dueDate)
+            Section(header: Text("dueDate")) {
+                DatePicker("dueDate",
+                           selection: $viewModel.newTodo.dueDate,
+                           displayedComponents: [.date, .hourAndMinute]
+                )
+                .datePickerStyle(.graphical)
                 if let error = viewModel.errorDueDate {
                     Text(error)
                         .font(.headline)
@@ -36,5 +41,6 @@ struct EditView: View {
 struct EditView_Previews: PreviewProvider {
     static var previews: some View {
         EditView(viewModel: TodoViewModel())
+            .environment(\.locale, .init(identifier: "ja-JP"))
     }
 }

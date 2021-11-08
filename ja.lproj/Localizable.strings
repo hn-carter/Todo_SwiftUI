@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  Todo_SwiftUI
+
+  Created by hn-carter on 2021/11/08.
+*/
+
+"title" = "タイトル";
+"enterTodo" = "やること";
+"add" = "作成";
+"addTodo" = "ToDo追加";
+"done" = "登録";
+"cancel" = "取り消し";
+"dueDate" = "期限";
+"noTodo" = "ToDoがありません。";
+"errorTitle" = "タイトルは必ず入力してください。";
+"errorDueDate" = "期限は現在以降を入力してください。";
