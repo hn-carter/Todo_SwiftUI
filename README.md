@@ -38,3 +38,11 @@ Views
   // TodoRowViewをリスト表示
   TodoListView.swift
 ```
+
+画面遷移
+```
+ToDoをリスト表示 (追加ボタンで表示)
+[TodoListView]       →        [EditView]
+↑ 行ごとの表示
+[TodoRowView]
+```
