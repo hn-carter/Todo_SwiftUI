@@ -41,8 +41,26 @@ Views
 
 画面遷移
 ```
-ToDoをリスト表示 (追加ボタンで表示)
-[TodoListView]       →        [EditView]
+ToDoをリスト表示 (追加ボタン)
+[TodoListView]     →     [EditView]
 ↑ 行ごとの表示
 [TodoRowView]
+```
+
+イベント
+```
+エントリーポイント
+[Todo_SwiftUIApp]
+TodoViewModel.load ファイル読み込み
+
+リスト
+[TodoListView]
+TodoViewModel.preAdd Todo追加前処理
+TodoViewModel.add Todo1件追加(入力チェック)
+TodoViewModel.delete Todo1件削除
+TodoViewModel.save ファイルに保存
+
+追加
+[EditView]
+TodoViewModelのエラーメッセージ表示
 ```
