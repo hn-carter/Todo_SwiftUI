@@ -64,3 +64,7 @@ TodoViewModel.save ファイルに保存
 [EditView]
 TodoViewModelのエラーメッセージ表示
 ```
+
+多言語対応
+* 英語 en.lproj
+* 日本語 ja.lproj
