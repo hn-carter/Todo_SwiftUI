@@ -18,6 +18,7 @@ extension Date {
         return calendar
     }
 
+    // 日付文字列yyyy-MM-ddからDateを作成　（未使用）
     init(_ dateString:String) {
         let dateStringFormatter = DateFormatter()
         dateStringFormatter.dateFormat = "yyyy-MM-dd"
