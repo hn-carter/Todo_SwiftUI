@@ -66,5 +66,7 @@ TodoViewModelのエラーメッセージ表示
 ```
 
 多言語対応
+Localizable.stringで対応
+
 * 英語 en.lproj
 * 日本語 ja.lproj
